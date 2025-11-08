@@ -17,6 +17,8 @@ const HotelCard = ({room, index}) => {
                 <div className='flex items-center gap-1'>
                     <img src={assets.starIconFilled} alt="star-icon" /> 4.5
                 </div>
+     
+     
             </div>
 
             <div className='flex items-center justify-between mt-4'>
