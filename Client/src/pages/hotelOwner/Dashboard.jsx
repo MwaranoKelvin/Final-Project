@@ -43,6 +43,28 @@ const Dashboard = () => {
                     </tr>
 
                 </thead>
+                <tbody className='text-sm'>
+                    {dashboardData.bookings.map((item, index) => (
+                        <tr key={index}>
+                            <td className='py-3 px-4 text-gray-700 border-t border-gray-300'>
+                                {item.user.username}
+                            </td>
+                            <td className='py-3 px-4 text-gray-700 border-t border-gray-300 maz-sm:hidden'>
+                                {item.room.roomType}
+                            </td>
+                            <td className='py-3 px-4 text-gray-700 border-t border-gray-300 text-center'>
+                               $ {item.totalPrice}
+                            </td>
+                            <td className='py-3 py-4 border-t border-gray-300 flex'>
+                                <button className={`py-1 px-3 text-xs rounded-full max-auto ${item.isPaid ? 'bg-green-200 text-green-600' : 'bg-amber-200 text-yellow-600'}`}>
+                                    {item.isPaid ? 'Completed' : 'Pending'}
+                                </button>
+                            </td>
+
+                        </tr>
+                    ))}
+
+                </tbody>
             </table>
 
         </div>
