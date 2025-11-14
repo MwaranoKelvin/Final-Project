@@ -1,13 +1,12 @@
-// import Users from "../models/Users";
-import Users from "../models/Users"
+import User from "../models/User.js";
 import { Webhook } from "svix";
 
-const clerkWebHooks = async (req, res) => {
+const clerkWebhooks = async (req, res ) => {
     try {
         // Create a Svix instance with clerk webhook secret.
         const whook = new Webhook(process.env.CLERK_WEBHOOK_SECTRET);
 
-        // When I want to get the Headers
+        // Getting Headers
         const headers = {
             "svix-id": req.headers["svix-id"],
             "svix-timestamp": req.headers["svix-timestamp"],
@@ -27,22 +26,20 @@ const clerkWebHooks = async (req, res) => {
             image: data.image_url,
         }
 
-        // Switch case for different user Events
-        switch (type) {
+        // Different events
+        switch (key) {
             case "user.created": {
                 await User.create(userData);
                 break;
             }
-
             case "user.updated": {
-                await User.findByIdAndUpdate(data.id, userData);
+                await User.findByIdAndUpdate( data.id, userData);
                 break;
             }
-
             case "user.deleted": {
-                await User.findByIdAndDelete(data.id);
+                await User.findByIdAndDelete( data.id);
                 break;
-            }  
+            }
         
             default:
                 break;
@@ -54,6 +51,6 @@ const clerkWebHooks = async (req, res) => {
         console.log(error.message);
         res.json({success: false, message: error.message});
         
-    }
+    }    
 }
-export default clerkWebHooks;
+export default clerkWebhooks;
